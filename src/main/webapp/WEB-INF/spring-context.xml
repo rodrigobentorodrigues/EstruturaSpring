@@ -12,9 +12,17 @@
                         http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
     <!--Pacote onde tera todos os controladores da aplicação-->
-    <context:component-scan base-package="com.ifpb.spring.controladores" />
+    <context:component-scan base-package="com.ifpb.padroes.controladores" />
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven />
+    
+    <!--Adicionando Ajax ao projeto-->
+    <mvc:default-servlet-handler/>
+    
+    <!--Classe que irá conter todos os interceptadores (filtros), "adicionar a classe"-->
+<!--    <mvc:interceptors>
+        <bean class="com.ifpb.padroes.interceptadores"/>
+    </mvc:interceptors>-->
 
     <!-- Local onde conterá as rotas utilizadas pelo Controller, ou seja, 
     quando um controller atribuir sua responsabilidade, seu retorno 
@@ -22,5 +30,18 @@
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <bean id="DaoTeste" class="com.ifpb.padroes.infra.DaoTeste"></bean>
+    
+    <!--Configurando o Spring para ter conectividade com o postgres. 
+    Alem desse bean, deve ser importado a dependencia do spring jdbc (3.0.0 Release) 
+    e a do POSTGRES-->
+    <bean id="dataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver" />
+        <property name="url" value="jdbc:postgresql://localhost:5432/Padroes"/>
+        <property name="username" value="postgres" />
+        <property name="password" value="123" />
     </bean>
 </beans>
